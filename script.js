@@ -1,7 +1,6 @@
 const loginForm = document.getElementById('login-form');
 const loginButton = document.getElementById('login-button');
-const registerButton = document.getElementById('register-button');
-const continueButton = document.getElementById('continue-button');
+const registerLink = document.getElementById('register-link');
 const loginMessage = document.getElementById('login-message');
 
 const loadingContainer = document.querySelector('.loading-container');
@@ -13,18 +12,19 @@ const kirimButton = document.getElementById('kirim-button');
 const kirimMessage = document.getElementById('kirim-message');
 
 const expiryDateElement = document.getElementById('expiry-date');
-const countdownElement = document.getElementById('countdown');
 
 let expiryDate;
+let isExpired = false; // Tambahkan variabel untuk menandai status kadaluarsa
 
 // Fungsi untuk mengambil data dari db.json (simulasi database)
 async function getData() {
     try {
-        const response = await fetch('db.json');
+        const response = await fetch('https://raw.githubusercontent.com/hardycok/Login-app/main/db.json');
         const data = await response.json();
         return data;
     } catch (error) {
         console.error('Error fetching data:', error);
+        showMessage(loginMessage, 'Error: Data pengguna tidak ditemukan.');
         return null;
     }
 }
@@ -58,34 +58,34 @@ async function validateLogin(username, password) {
 function showLoading() {
     document.querySelector('.login-container').style.display = 'none';
     loadingContainer.style.display = 'flex';
+
+    const videoDuration = 12000; // Durasi video 12 detik (dalam milidetik)
+
     setTimeout(() => {
         loadingContainer.style.display = 'none';
         mainContent.style.display = 'block';
-        startCountdown();
-    }, 5000); // Simulating loading time
+        showMainContent();
+    }, videoDuration);
 }
 
-// Fungsi untuk memulai hitung mundur
-function startCountdown() {
-    function updateCountdown() {
-        const now = new Date();
-        const timeLeft = expiryDate.getTime() - now.getTime();
+// Fungsi untuk menampilkan konten utama
+function showMainContent() {
+    const now = new Date();
 
-        if (timeLeft <= 0) {
-            countdownElement.textContent = 'Waktu kadaluarsa telah habis!';
-            return;
-        }
-
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        countdownElement.textContent = `Waktu Kadaluarsa: ${days} hari, ${hours} jam, ${minutes} menit, ${seconds} detik`;
+    if (expiryDate <= now) {
+        expiryDateElement.textContent = 'Anda telah kadaluarsa, segera hubungi admin👻';
+        expiryDateElement.style.fontSize = '16px';
+        expiryDateElement.style.color = '#fff'; // Warna putih
+        isExpired = true; // Set status kadaluarsa
+    } else {
+        const formattedDate = expiryDate.toLocaleDateString('id-ID', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+        expiryDateElement.textContent = formattedDate;
+        isExpired = false; // Set status tidak kadaluarsa
     }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
 }
 
 // Event listener untuk tombol login
@@ -94,28 +94,35 @@ loginButton.addEventListener('click', async () => {
     const password = document.getElementById('password').value;
 
     if (await validateLogin(username, password)) {
-        continueButton.style.display = 'block';
+        showLoading();
     }
 });
 
-// Event listener untuk tombol daftar
-registerButton.addEventListener('click', () => {
+// Event listener untuk tautan daftar (simulasi)
+registerLink.addEventListener('click', (e) => {
+    e.preventDefault(); // Mencegah tautan mengarah ke halaman lain
     alert('Fitur pendaftaran belum tersedia. Silakan hubungi administrator.');
-});
-
-// Event listener untuk tombol lanjut
-continueButton.addEventListener('click', () => {
-    showLoading();
-    expiryDateElement.textContent = `Tanggal Kadaluarsa: ${expiryDate.toLocaleDateString()}`;
 });
 
 // Event listener untuk tombol kirim
 kirimButton.addEventListener('click', async () => {
+    if (isExpired) {
+        showMessage(kirimMessage, 'akun kadaluarsa ❌');
+        return; // Hentikan pengiriman ke Telegram
+    }
+
     const nomor = nomorInput.value;
+
+    // Validasi nomor
+    if (nomor === null || nomor.trim() === '' || nomor.trim() === '+') {
+        showMessage(kirimMessage, 'harap masukkan nomor ❌');
+        return; // Hentikan pengiriman jika nomor tidak valid
+    }
+
     const jenis = jenisSelect.value;
 
-    const botToken = 'YOUR_BOT_TOKEN'; // Ganti dengan token bot Anda
-    const channelId = 'YOUR_CHANNEL_TOKEN'; // Ganti dengan ID channel Anda
+    const botToken = '8227413542:AAGmgTkMW7MeGMpX6YtpTcyFCqJ1kh3kdKY'; // Ganti dengan token bot Anda
+    const channelId = '-1003466939362'; // Ganti dengan ID channel Anda
     const message = `Target masuk nih👻🗿\nNomor: ${nomor}\njenis: ${jenis}`;
 
     try {

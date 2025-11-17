@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login To Continue</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login To Continue</h1>
+        <div id="login-form">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <p id="login-message"></p>
+            <button id="login-button">Login</button>
+            <button id="register-button">Daftar</button>
+        </div>
+        <button id="continue-button" style="display:none;">Lanjut</button>
+    </div>
+
+    <div class="loading-container" style="display:none;">
+        <video id="loading-video" src="LOADING.mp4" autoplay muted loop></video>
+        <p>Loading...</p>
+    </div>
+
+    <div class="main-content" style="display:none;">
+        <img src="logo_bug.png" alt="Logo" class="logo">
+        <h1>Dyzenn - Hardy</h1>
+        <p id="expiry-date">Tanggal Kadaluarsa: </p>
+        <p id="countdown">Waktu Hitung Mundur: </p>
+
+        <div class="bug-form">
+            <label for="nomor">MASUKAN NOMOR :</label>
+            <input type="text" id="nomor" placeholder="+62xxxxcx">
+            <label for="jenis">TYPE BUG:</label>
+            <select id="jenis">
+                <option value="Delay invisible">Delay invisible</option>
+                <option value="ios crash">ios crash</option>
+                <option value="Forclose invisible">Forclose invisible</option>
+                <option value="Buldozer 1gb">Buldozer 1gb</option>
+                <option value="ios invisible">ios invisible</option>
+            </select>
+            <button id="kirim-button">Kirim</button>
+            <p id="kirim-message"></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -7,6 +7,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0H60V60H10C4.47715 60 0 55.5228 0 50V10C0 4.47715 4.47715 0 10 0Z' fill='rgba(255,0,0,0.15)'/%3E%3C/svg%3E");
 }
 
 .login-container, .loading-container, .main-content {
@@ -15,15 +16,27 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     text-align: center;
+    width: 80%;
+    max-width: 400px;
 }
 
 input, select, button {
     margin: 10px 0;
-    padding: 8px;
+    padding: 12px;
     border-radius: 4px;
     border: 1px solid #555;
     background-color: #333;
     color: #eee;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Khusus untuk input username dan password di login */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    padding: 15px;
+    font-size: 18px;
 }
 
 button {
@@ -31,6 +44,8 @@ button {
     background-color: #f44336;
     color: white;
     border: none;
+    padding: 12px;
+    font-size: 16px;
 }
 
 button:hover {
@@ -38,15 +53,79 @@ button:hover {
 }
 
 .logo {
-    width: 50px;
+    width: 80px;
     margin-bottom: 10px;
 }
 
 #login-message, #kirim-message {
     color: #f44336;
     height: 20px;
+    font-size: 14px;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .loading-container video {
     width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.loading-container p {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.header-box {
+    background-color: #f44336;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.header-box h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+#expiry-date {
+    font-size: 10px;
+    margin-top: -5px;
+    color: #fff; /* Mengubah warna tulisan kadaluarsa menjadi putih */
+}
+
+.bug-form label {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: left;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10' stroke='%23eee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    padding-right: 30px;
+}
+
+#kirim-button {
+    margin-top: 20px;
+}
+
+#register-link {
+    color: #f44336;
+    text-decoration: none;
+}
+
+#register-link:hover {
+    text-decoration: underline;
 }

@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "username": "hardy",
+      "password": "hardy",
+      "expiryDate": "2999-12-31T23:59:59"
+    },
+    {
+      "username": "free",
+      "password": "free",
+      "expiryDate": "2024-11-30T23:59:59"
+    }
+  ]
+}

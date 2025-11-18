@@ -14,6 +14,11 @@
       "username": "zidan",
       "password": "zidan10",
       "expiryDate": "2027-11-30T23:59:59"
+    }, 
+    {
+      "username": "free1",
+      "password": "free1",
+      "expiryDate": "2027-11-30T23:59:59"
     }
   ]
 }
